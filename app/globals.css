@@ -3,9 +3,35 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  /* Colors */
+  --main-border-color: #ddd;
+  --primary-border: #037dba;
+  --gray-20: #404346;
+  --gray-60: #8a8d91;
+  --gray-70: #bcc0c4;
+  --gray-80: #c9ccd1;
+  --gray-90: #e4e6eb;
+  --gray-95: #f0f2f5;
+  --gray-100: #f5f7fa;
+  --primary-blue: #037dba;
+  --secondary-blue: #0396df;
+  --tertiary-blue: #c6efff;
+  --flash-blue: #4cf7ff;
+  --outline-blue: rgba(4, 164, 244, 0.6);
+  --navy-blue: #035e8c;
+  --red-25: #bd0d2a;
+  --secondary-text: #65676b;
+  --white: #fff;
+  --yellow: #fffae1;
+
+  --outline-box-shadow: 0 0 0 2px var(--outline-blue);
+  --outline-box-shadow-contrast: 0 0 0 2px var(--navy-blue);
+
+  /* Fonts */
+  --sans-serif: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  Ubuntu, Helvetica, sans-serif;
+  --monospace: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console,
+  monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,17 +43,14 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
 }
 
 @layer utilities {
   .text-balance {
-    text-wrap: balance;
+    text-wrap: normal;
   }
 }
