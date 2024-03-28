@@ -3,8 +3,17 @@
 import { useState } from "react";
 import Image from "next/image";
 import NotePreview from "@/components/NotePreview";
+import { deleteNote, saveNote } from "@/app/actions";
 
-export default function NoteEditor({id, title, content}: {id: string, title: string, content: string}) {
+export default function NoteEditor({
+  id,
+  title,
+  content,
+}: {
+  id: string;
+  title: string;
+  content: string;
+}) {
   const [pending] = useState(false);
   const [getTitle, setTitle] = useState(title);
   const [getContent, setContent] = useState(content);
@@ -20,7 +29,7 @@ export default function NoteEditor({id, title, content}: {id: string, title: str
           id="note-title-input"
           className="border border-gray-400 min-h-12"
           type="text"
-          value={title}
+          value={getTitle}
           onChange={(event) => {
             setTitle(event.target.value);
           }}
@@ -29,7 +38,7 @@ export default function NoteEditor({id, title, content}: {id: string, title: str
         <textarea
           id="note-content-input"
           className="grow border border-gray-400"
-          value={content}
+          value={getContent}
           onChange={(event) => {
             setContent(event.target.value);
           }}
@@ -37,7 +46,16 @@ export default function NoteEditor({id, title, content}: {id: string, title: str
       </form>
       <div className="grow flex flex-col">
         <form className="flex flex-row justify-end" role="menubar">
-          <button className="bg-blue-400 rounded-xl text-center flex justify-between items-center px-2 py-0.5 text-white mr-2" disabled={pending} type="submit" role="menuitem">
+          <input type="hidden" name="id" value={id} />
+          <input type="hidden" name="title" value={getTitle} />
+          <input type="hidden" name="content" value={getContent} />
+          <button
+            className="bg-blue-400 rounded-xl text-center flex justify-between items-center px-2 py-0.5 text-white mr-2"
+            disabled={pending}
+            type="submit"
+            role="menuitem"
+            formAction={saveNote}
+          >
             <Image
               className="mr-1"
               src="/checkmark.svg"
@@ -49,7 +67,12 @@ export default function NoteEditor({id, title, content}: {id: string, title: str
             Done
           </button>
           {!isDraft && (
-            <button className="bg-white border border-red-600 rounded-xl text-center flex justify-between items-center px-2 py-0.5 text-red-500" disabled={pending} role="menuitem">
+            <button
+              className="bg-white border border-red-600 rounded-xl text-center flex justify-between items-center px-2 py-0.5 text-red-500"
+              disabled={pending}
+              role="menuitem"
+              formAction={deleteNote}
+            >
               <Image
                 className="mr-1"
                 src="/cross.svg"
@@ -67,8 +90,8 @@ export default function NoteEditor({id, title, content}: {id: string, title: str
             Preview
           </label>
         </div>
-        <h1 className="text-2xl mb-4">{title}</h1>
-        <NotePreview>{content}</NotePreview>
+        <h1 className="text-2xl mb-4">{getTitle}</h1>
+        <NotePreview>{getContent}</NotePreview>
       </div>
     </div>
   );
