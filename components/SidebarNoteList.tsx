@@ -4,7 +4,7 @@ import SidebarNoteItem from "@/components/SidebarNoteItem";
 export default async function NoteList() {
   const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
-  await sleep(3000);
+  await sleep(500);
   const notes = await getAllNotes();
   if (notes.length == 0) {
     return (

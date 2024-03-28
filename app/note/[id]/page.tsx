@@ -7,12 +7,12 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   const sleep = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
-  await sleep(5000);
+  await sleep(1000);
 
   if (data == null) {
     return (
-      <div className="">
-        <span>Click a note on the left to view something! 🥺</span>
+      <div className="text-center">
+        <span className="">Click a note on the left to view something! 🥺</span>
       </div>
     );
   }

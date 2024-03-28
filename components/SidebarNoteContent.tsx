@@ -17,7 +17,7 @@ export default function SidebarNoteContent({
 }) {
   const router = useRouter();
   const pathName = usePathname();
-  const selectedId = pathName?.split("/")[1] || null;
+  const selectedId = pathName?.split("/")[2] || null;
 
   const [isPending] = useTransition();
   const [isExpanded, setIsExpanded] = useState(false);
@@ -39,20 +39,12 @@ export default function SidebarNoteContent({
       onAnimationEnd={() => itemRef.current?.classList.remove("flash")}
       className="flex flex-col mx-8 my-2 bg-gray-200"
     >
-      <div className="flex" onClick={event => router.push(`/note/${id}`)}>
+      <div
+        className={`flex top-0 left-0 right-0 bottom-0 w-full h-full rounded-md
+          ${isActive ? "border-2 border-blue-500" : "border-2 border-transparent"}`}
+        onClick={(event) => router.push(`/note/${id}`)}
+      >
         {children}
-        {/*<button*/}
-        {/*  className={`absolute top-0 left-0 right-0 bottom-0 w-5 h-5 rounded-md bg-orange-500*/}
-        {/*  ${isPending ? "bg-gray-800" : ""} ${isActive ? "bg-blue-600 border-2 border-blue-500" : "border-2 border-transparent"}`}*/}
-        {/*  onClick={() => {*/}
-        {/*    // const sidebarToggle = document.getElementById("sidebar-toggle");*/}
-        {/*    // if (sidebarToggle) {*/}
-        {/*    // }*/}
-        {/*    router.push(`/note/${id}`);*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  Open note for preview*/}
-        {/*</button>*/}
         <button
           className="z-10 rounded-full border border-gray-50 w-6 h-6 justify-end relative"
           onClick={(event) => {
