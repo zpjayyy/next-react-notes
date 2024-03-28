@@ -1,6 +1,6 @@
 export default function NoteSkeleton() {
   return (
-    <div className="w-full h-full animate-pulse">
+    <div className="w-full h-full p-16 animate-pulse">
       <div className="h-8 flex">
         <div className="bg-gray-200 rounded-full dark:bg-gray-700 w-full mb-4" />
         <div className="bg-gray-200 rounded-full dark:bg-gray-700 w-1/6 mb-4" />

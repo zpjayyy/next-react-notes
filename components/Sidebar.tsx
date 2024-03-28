@@ -22,7 +22,7 @@ export default async function Sidebar() {
           </section>
         </Link>
         <section role="menubar" className="px-0 py-6 flex justify-between">
-          <EditButton noteId="null">New</EditButton>
+          <EditButton noteId="">New</EditButton>
         </section>
         <nav>
           <Suspense fallback={<NoteListSkeleton/>}>

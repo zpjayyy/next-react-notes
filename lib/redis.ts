@@ -47,7 +47,9 @@ export async function updateNote(uuid: string, data: Note) {
 export async function getNote(uuid: string) {
   const data = await redis.hget(key, uuid);
   if (data) {
-    return JSON.parse(data);
+    const note = JSON.parse(data);
+    note.id = uuid;
+    return note;
   }
   return null;
 }
