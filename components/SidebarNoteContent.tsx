@@ -39,15 +39,15 @@ export default function SidebarNoteContent({
       onAnimationEnd={() => itemRef.current?.classList.remove("flash")}
       className="flex flex-col mx-8 my-2 bg-gray-200"
     >
-      <div className="flex">
+      <div className="flex" onClick={event => router.push(`/note/${id}`)}>
         {children}
         {/*<button*/}
-        {/*  className={`absolute top-0 left-0 right-0 bottom-0 w-full rounded-md text-transparent text */}
+        {/*  className={`absolute top-0 left-0 right-0 bottom-0 w-5 h-5 rounded-md bg-orange-500*/}
         {/*  ${isPending ? "bg-gray-800" : ""} ${isActive ? "bg-blue-600 border-2 border-blue-500" : "border-2 border-transparent"}`}*/}
         {/*  onClick={() => {*/}
-        {/*    const sidebarToggle = document.getElementById("sidebar-toggle");*/}
-        {/*    if (sidebarToggle) {*/}
-        {/*    }*/}
+        {/*    // const sidebarToggle = document.getElementById("sidebar-toggle");*/}
+        {/*    // if (sidebarToggle) {*/}
+        {/*    // }*/}
         {/*    router.push(`/note/${id}`);*/}
         {/*  }}*/}
         {/*>*/}
@@ -69,7 +69,13 @@ export default function SidebarNoteContent({
               className="m-auto"
             />
           ) : (
-            <Image src="/chevron-up.svg" alt="expand" width="10" height="10" className="m-auto" />
+            <Image
+              src="/chevron-up.svg"
+              alt="expand"
+              width="10"
+              height="10"
+              className="m-auto"
+            />
           )}
         </button>
       </div>

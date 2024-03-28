@@ -26,9 +26,10 @@ export async function getAllNotes() {
     await redis.hset(key, initialData);
   }
   const result = await redis.hgetall(key);
+  const keys = Object.keys(data);
   return Object.values(result).map((value, index) => {
     const note: Note = JSON.parse(value);
-    note.id = index.toString();
+    note.id = keys[index];
     return note;
   });
 }
