@@ -1,10 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getAllNotes } from "@/lib/redis";
 import SidebarNoteList from "./SidebarNoteList";
+import EditButton from "@/components/EditButton";
+import {Suspense} from "react";
+import NoteListSkeleton from "@/components/NoteListSkeleton";
 
 export default async function Sidebar() {
-  const notes = await getAllNotes();
   return (
     <>
       <section className="h-full bg-white shadow-2xl overflow-y-scroll z-40 flex-shrink-0 max-w-80 w-1/3">
@@ -20,12 +21,13 @@ export default async function Sidebar() {
             <strong>React Note</strong>
           </section>
         </Link>
-        <section
-          role="menubar"
-          className="px-0 py-6 flex justify-between"
-        ></section>
+        <section role="menubar" className="px-0 py-6 flex justify-between">
+          <EditButton noteId="null">New</EditButton>
+        </section>
         <nav>
-          <SidebarNoteList notes={notes}/>
+          <Suspense fallback={<NoteListSkeleton/>}>
+            <SidebarNoteList/>
+          </Suspense>
         </nav>
       </section>
     </>
