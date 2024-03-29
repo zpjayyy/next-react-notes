@@ -42,7 +42,7 @@ export default function SidebarNoteContent({
       <div
         className={`flex top-0 left-0 right-0 bottom-0 w-full h-full rounded-md
           ${isActive ? "border-2 border-blue-500" : "border-2 border-transparent"}`}
-        onClick={(event) => router.push(`/note/${id}`)}
+        onClick={() => router.push(`/note/${id}`)}
       >
         {children}
         <button
