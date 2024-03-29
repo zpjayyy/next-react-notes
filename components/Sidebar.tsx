@@ -2,8 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import SidebarNoteList from "./SidebarNoteList";
 import EditButton from "@/components/EditButton";
-import {Suspense} from "react";
+import { Suspense } from "react";
 import NoteListSkeleton from "@/components/NoteListSkeleton";
+import SidebarSearchField from "@/components/SidebarSearchField";
 
 export default async function Sidebar() {
   return (
@@ -21,12 +22,13 @@ export default async function Sidebar() {
             <strong>React Note</strong>
           </section>
         </Link>
-        <section role="menubar" className="px-0 py-6 flex justify-between">
+        <section role="menubar" className="p-6 flex justify-between">
+          <SidebarSearchField />
           <EditButton noteId="">New</EditButton>
         </section>
         <nav>
-          <Suspense fallback={<NoteListSkeleton/>}>
-            <SidebarNoteList/>
+          <Suspense fallback={<NoteListSkeleton />}>
+            <SidebarNoteList />
           </Suspense>
         </nav>
       </section>

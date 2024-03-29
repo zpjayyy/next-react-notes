@@ -1,5 +1,6 @@
 import { getAllNotes } from "@/lib/redis";
-import SidebarNoteItem from "@/components/SidebarNoteItem";
+import SidebarNoteListFilter from "@/components/SidebarNoteListFilter";
+import SidebarNoteItemHeader from "@/components/SidebarNoteItemHeader";
 
 export default async function NoteList() {
   const sleep = (ms: number) =>
@@ -14,12 +15,18 @@ export default async function NoteList() {
     );
   }
   return (
-    <ul>
-      {notes.map((note) => (
-        <li key={note.id}>
-          <SidebarNoteItem note={note} />
-        </li>
-      ))}
-    </ul>
+    <SidebarNoteListFilter
+      notes={notes.map((note) => {
+        return {
+          note,
+          header: (
+            <SidebarNoteItemHeader
+              title={note.title}
+              updateTime={note.updateTime}
+            />
+          ),
+        };
+      })}
+    />
   );
 }
