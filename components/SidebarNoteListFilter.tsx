@@ -23,7 +23,7 @@ export default function SidebarNoteListFilter({
             note.title.toLowerCase().includes(searchText.toLowerCase()))
         ) {
           return (
-            <li>
+            <li key={note.id}>
               <SidebarNoteContent
                 id={note.id}
                 title={note.title}
