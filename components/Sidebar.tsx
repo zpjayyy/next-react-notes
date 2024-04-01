@@ -5,8 +5,10 @@ import EditButton from "@/components/EditButton";
 import { Suspense } from "react";
 import NoteListSkeleton from "@/components/NoteListSkeleton";
 import SidebarSearchField from "@/components/SidebarSearchField";
+import {useTranslations} from "next-intl";
 
-export default async function Sidebar() {
+export default function Sidebar() {
+  const t = useTranslations("basic");
   return (
     <>
       <section className="h-full bg-white shadow-2xl overflow-y-scroll z-40 flex-shrink-0 max-w-80 w-1/3">
@@ -24,7 +26,7 @@ export default async function Sidebar() {
         </Link>
         <section role="menubar" className="p-6 flex justify-between">
           <SidebarSearchField />
-          <EditButton noteId="">New</EditButton>
+          <EditButton noteId="">{t("new")}</EditButton>
         </section>
         <nav>
           <Suspense fallback={<NoteListSkeleton />}>

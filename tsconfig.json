@@ -33,7 +33,7 @@
         "./lib/*"
       ],
       "@/actions": [
-        "app/[lng]/actions.ts"
+        "app/[locale]/actions.ts"
       ]
     }
   },
