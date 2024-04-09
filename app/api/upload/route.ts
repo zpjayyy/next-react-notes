@@ -4,7 +4,7 @@ import * as process from "node:process";
 import { join } from "path";
 import { mkdir, stat, writeFile } from "fs/promises";
 import mime from "mime";
-import { addNotes, Note } from "@/lib/redis";
+import { addNotes } from "@/lib/redis";
 import { revalidatePath } from "next/cache";
 
 export async function POST(request: NextRequest) {
@@ -26,21 +26,18 @@ export async function POST(request: NextRequest) {
 
   try {
     await stat(uploadDir);
-  } catch (e) {
-    // if (e instanceof Error) {
-    //   if (e.code === "ENOENT") {
-    //     await mkdir(uploadDir, { recursive: true });
-    //   } else {
-    //
-    //   }
-    // }
+  } catch (e: any) {
     console.error(e);
-    return NextResponse.json(
-      {
-        error: "something went wrong",
-      },
-      { status: 500 },
-    );
+    if (e.code === "ENOENT") {
+      await mkdir(uploadDir, { recursive: true });
+    } else {
+      return NextResponse.json(
+        {
+          error: "something went wrong",
+        },
+        { status: 500 },
+      );
+    }
   }
 
   try {
@@ -50,7 +47,7 @@ export async function POST(request: NextRequest) {
     await writeFile(`${uploadDir}/${uniqueFileName}`, buffer);
 
     const note = JSON.parse(
-      `{title: ${fileName} content: ${buffer.toString("utf-8")}`,
+      `{"title": "${uniqueFileName}", "content": "${buffer.toString("utf-8")}"}`,
     );
     const res = await addNotes(note);
 

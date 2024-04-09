@@ -1,10 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useRef } from "react";
+import { importNote } from "@/actions";
+import { useFormStatus } from "react-dom";
 
 export default function SidebarImport() {
   const router = useRouter();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const onChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const fileInput = event.target;
@@ -17,41 +20,70 @@ export default function SidebarImport() {
     const formData = new FormData();
     formData.append("file", file);
 
+    // try {
+    //   const response = await fetch("/api/upload", {
+    //     method: "POST",
+    //     body: formData,
+    //   });
+    //
+    //   if (!response.ok) {
+    //     console.error("Could not find file");
+    //     return;
+    //   }
+    //
+    //   const data = await response.json();
+    //   router.push(`${data.uid}`);
+    //   router.refresh();
+    // } catch (error) {
+    //   console.error("Error parsing file", error);
+    // }
+
     try {
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        console.error("Could not find file");
-        return;
-      }
-
-      const data = await response.json();
-      router.push(`note/${data.uid}`);
+      const data = await importNote(formData);
+      router.push(`${data?.uid}`);
     } catch (error) {
-      console.error("Error parsing file", error);
+      console.error("Error importing note", error);
     }
 
     event.target.type = "text";
     event.target.type = "file";
   };
 
+  async function upload(formData: FormData) {
+    const file = formData.get("file");
+    if (!file) {
+      console.warn("No files selected");
+      return;
+    }
+
+    try {
+      const data = await importNote(formData);
+      router.push(`note/${data?.uid}`);
+    } catch (error) {
+      console.error("Error importing note", error);
+    }
+
+    formRef.current?.reset();
+  }
+
   return (
-    <form method="post" encType="multipart/form-data">
+    <form action={upload} ref={formRef}>
       <div className="text-center">
-        <label form="file" className="cursor-pointer">
+        <label htmlFor="file" className="cursor-pointer">
           Import .md file
         </label>
-        <input
-          type="file"
-          id="file"
-          multiple
-          className="absolute clip"
-          onChange={onChange}
-        />
+        <input type="file" id="file" name="file" accept=".md" />
+        <div>
+          <Submit />
+        </div>
       </div>
     </form>
+  );
+}
+
+function Submit() {
+  const { pending } = useFormStatus();
+  return (
+    <button disabled={pending}>{pending ? "submitting" : "submit"}</button>
   );
 }
