@@ -5,7 +5,8 @@ import EditButton from "@/components/EditButton";
 import { Suspense } from "react";
 import NoteListSkeleton from "@/components/NoteListSkeleton";
 import SidebarSearchField from "@/components/SidebarSearchField";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
+import SidebarImport from "@/components/SidebarImport";
 
 export default function Sidebar() {
   const t = useTranslations("basic");
@@ -33,6 +34,7 @@ export default function Sidebar() {
             <SidebarNoteList />
           </Suspense>
         </nav>
+        <SidebarImport />
       </section>
     </>
   );
