@@ -1,6 +1,3 @@
-import { NextRequest, NextResponse } from "next/server";
-import Negotiator from "negotiator";
-import { match } from "@formatjs/intl-localematcher";
 import { defaultLocale, locales } from "@/config";
 import createMiddleware from "next-intl/middleware";
 
@@ -47,6 +44,8 @@ export default createMiddleware({
   defaultLocale,
   localePrefix: "as-needed",
 });
+
+// export { auth as middleware } from "auth";
 
 export const config = {
   matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
